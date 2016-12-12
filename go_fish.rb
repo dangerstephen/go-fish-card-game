@@ -1,9 +1,72 @@
+
+
 class PlayingCard
-  # initialize
+
+  attr_reader :rank, :suit, :face
+
+  def initialize(card)
+    @rank = card[:rank]
+    @suit = card[:suit]
+    @face = @rank + @suit
+  end
+
+    def to_s
+      @face
+    end
 end
 
+
 class CardDeck
-  # initialize
+
+  attr_reader :cards
+
+  def initialize(boolean=true)
+   @cards = []
+  #  @hands=[]
+
+       ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+       suits = ["C", "D", "H", "S"]
+
+       ranks.each do |rank|
+         suits.each do |suit|
+           @cards.push ( PlayingCard.new(rank: rank, suit: suit) )
+
+       end
+     end
+ end
+
+  # def cards
+  #   @cards =Array.new(52, PlayingCard)
+  # end
+
+    def shuffle
+      @cards.shuffle!
+    end
+
+    def draw(n=1)
+      @hands=[]
+
+      if n > @cards.length
+        @cards.length.times do
+          last_card = @cards.pop
+          @hands.push(last_card)
+        end
+      else  n.times do
+        last_card = @cards.pop
+      @hands.push(last_card)
+    end
+  end
+    @hands
+    end
+
+  def draw_one
+    @cards.pop
+  end
+
+  def push(*card)
+    @cards.push(*card)
+  end
+
 end
 
 class HandOfCards
@@ -18,6 +81,8 @@ end
 # Driver Code
 if __FILE__ == $0
   puts "This will only print if you run `ruby go_fish.rb`"
+
+
   # deck = CardDeck.new
   # # # puts "cards: #{deck.cards}"
   # # # puts "cards: #{deck}"
